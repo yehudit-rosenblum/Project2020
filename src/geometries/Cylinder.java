@@ -27,6 +27,11 @@ public class Cylinder extends  Tube {
         return height;
     }
 
+    /**
+     * Vecter getter
+     * @param P point.
+     * @return Vector
+     */
     @Override
     public Vector getNormal(Point3D P) {
         return null;
