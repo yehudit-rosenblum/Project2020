@@ -1,12 +1,10 @@
 package geometries;
 
-import primitives.Coordinate;
-import primitives.Point3D;
-import primitives.Vector;
+import primitives.*;
 
 /**
  *  The plane class is in the geometric shapes.
- *  It is a surface. It contains a vector and a point.
+ *  It is a surface (mishtach). It contains a normal to the plane and points.
  *  From this data you can complete the plane.
  */
 
@@ -17,30 +15,33 @@ public class Plane implements Geometry {
 
     public Plane(Point3D a, Point3D b, Point3D c){
         p=a;
-        normal=null;
+        Vector v1=new Vector(a.subtract(b));
+        Vector v2=new Vector(b.subtract(c));
+        normal=v1.crossProduct(v2);
     }
-    public Plane(Point3D p1, Vector v){
-        p=p1;
-        normal=v;
+    public Plane(Point3D a, Vector c){
+        p=a;
+        normal=c;
     }
 
 
-    public Point3D getP() {
+    public Point3D getP1() {
         return p;
     }
 
-    public Vector getNormal() {
+    public Vector getNormal(){
         return normal;
     }
 
     @Override
     public Vector getNormal(Point3D P) {
-        return null;
+        return normal;
     }
 
 
     /**
      * prints the fields in the Plane.
+     *
      * @return String
      */
     @Override

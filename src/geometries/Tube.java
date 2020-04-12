@@ -6,9 +6,10 @@ import primitives.Vector;
 
 /**
  * The tube class is in the geometric shapes.
- * It is a form of endless roll.
- * Tube class contains a 3D point that indicates the starting point, vector from the starting opint
- * and a radius.
+ * It is a form of endless roll(galil).
+ * Tube class contains a ray. Which contains a 3D point that indicates the starting point,
+ * and a vector directoin.
+ * It also inhereites a radius.
  */
 
 
@@ -28,7 +29,17 @@ public class Tube extends RadialGeometry {
 
     @Override
     public Vector getNormal(Point3D P) {
-        return null;
+
+        Point3D O=axisRay.getPo();
+        Vector v=axisRay.getDir();
+        Vector vec=P.subtract(O);
+        double d=vec.dotProduct(vec);
+        if (d!=0)
+        {
+            O.add(v.scale(d));
+        }
+        Vector vector=P.subtract(O);
+        return vector.normalize();
     }
 
 

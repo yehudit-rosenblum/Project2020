@@ -22,10 +22,14 @@ Point3D center;
         return center;
     }
 
+
     @Override
     public Vector getNormal(Point3D P) {
-        return null;
+        Vector normal = P.subtract(center);
+        return normal.normalize();
     }
+
+
 
 
     /**

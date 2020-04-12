@@ -37,7 +37,7 @@ public class Vector {
      */
     public Vector(double x1, double y1, double z1) {
         Point3D p = new Point3D(x1, y1, z1);
-        if (p.equals(Point3D.ZERO))
+          if (p.equals(Point3D.ZERO))
             throw new IllegalArgumentException("no meaning to the vector");
         head=new Point3D(p);
     }
@@ -61,7 +61,8 @@ public class Vector {
      * @param other vector to copy.
      */
     public Vector(Vector other) {
-        head = other.head;
+
+        head =new Point3D(other.head);
     }
 
 
@@ -74,13 +75,19 @@ public class Vector {
         return head;
     }
 
+    /**
+     * Subtracts between the two points in the vectors.
+     * And returns a new vector.
+     * @param other vector
+     * @return new vector.
+     */
     public Vector subtract (Vector other) {
         Vector t =new Vector(head.subtract(other.head));
         return t;
     }
 
     /**
-     * Function that adds the head point of my Vector with the head of the other Vector
+     * Adds the head point of my Vector with the head of the other Vector
      * @param other Vector to add.
      * @return a new vector with a new point head.
      */
@@ -92,7 +99,7 @@ public class Vector {
 
 
     /**
-     * Function that multiplise the head point of the Vector with a number.
+     * Multiplise the head point of the Vector with a number.
      * @param num double.
      * @return a new vector with a new point head.
      */
@@ -106,15 +113,16 @@ public class Vector {
     }
 
     /**
-     * This function multiplices between 2 vectors.
+     * Multiplices between 2 vectors.
      * And then returns a scalar.
      * @param other Vector
      * @return a double number.
      */
 
-    public Double dotProduct(Vector other) {
-       return((head.x._coord*other.head.x._coord)+(head.y._coord*other.head.y._coord)
-                +(head.z._coord*other.head.z._coord));
+    public double dotProduct(Vector other) {
+       double num= (head.x._coord*other.head.x._coord+head.y._coord*other.head.y._coord
+                +head.z._coord*other.head.z._coord);
+       return num;
     }
 
     /**
@@ -152,20 +160,22 @@ public class Vector {
 
 
     /**
-     * This function begins to nurmilze the Vector
-     * @return the begining of the calculation
+     * This function nurmilzes the current vector and changes it.
+     * @return the current vector after numilazing its coordinates.
      */
 
     public Vector normalize() {
-        this.head = scale(1 / length()).head;
+        double num=1/length();
+        head = scale(num).head;
         return this;
     }
 
 
 
     /**
-     * This function does the end of the Calculataion of Nurmilize.
-     * @return the sqrt of  the last functions.
+     * Creates a new Vector that is normilazed.
+     * It puts in the Head point the nurmilazed coordinets that came back from the last function.
+     * @return a new Vector that is nurmilazed.
      */
     public Vector normalized() {
         Vector t=new Vector(normalize());
