@@ -1,5 +1,4 @@
 package geometries;
-
 import primitives.Point3D;
 import primitives.Vector;
 
@@ -8,9 +7,6 @@ import primitives.Vector;
  * It Contains a function that returns the normal for any point on a shape.
  * All geometric classes inherit from it and perform this function according to their shape.
  */
-
-
-
-public interface Geometry {
+public interface Geometry extends Intersectable {
 public Vector getNormal(Point3D p);
 }

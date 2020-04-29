@@ -1,4 +1,5 @@
 package primitives;
+import static primitives.Util.*;
 
 /**
  * The Ray class is in the primitive forms.
@@ -12,7 +13,7 @@ package primitives;
 public class Ray {
     Vector dir;
     Point3D po;
-    public Ray(Vector dir1, Point3D po1) {
+    public Ray(Point3D po1, Vector dir1) {
         dir1.normalized();
         dir=dir1;
         po=po1;
@@ -30,6 +31,21 @@ public class Ray {
     public Point3D getPo() {
         return po;
     }
+
+
+    /**
+     * This function makes a new point.
+     * She adds the starting point of the ray with the lenth.
+     * @param lenth
+     * @return a new Point which is the starting Point of the ray plus the lenth.
+     */
+    public Point3D getTargetPoint(double lenth){
+        if (isZero(lenth))
+            return po;
+        Vector v=dir.scale(lenth);
+        return new Point3D(po.add(v));
+    }
+
 
     /**
      * Class ClassName is the basic class representing a … of Euclidean geometry in Cartesian

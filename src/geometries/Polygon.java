@@ -1,23 +1,17 @@
 package geometries;
-
-import java.util.List;
 import primitives.*;
+import java.util.List;
 import static primitives.Util.*;
 
 /**
- * Polygon class represents two-dimensional polygon in 3D Cartesian coordinate
- * system
- *
+ * Polygon class is a Plane(mishtach) which is closed with Point3D dots.
+ * The amount of points that it will get wil make the particular shape.
+ * It contains a List of Point3D and a plane.
  * @author Dan
  */
 public class Polygon implements Geometry {
-    /**
-     * List of polygon's vertices
-     */
+
     protected List<Point3D> _vertices;
-    /**
-     * Associated plane in which the polygon lays
-     */
     protected Plane _plane;
 
     /**
@@ -83,5 +77,16 @@ public class Polygon implements Geometry {
     @Override
     public Vector getNormal(Point3D point) {
         return _plane.getNormal();
+    }
+
+
+    /**
+     * Dount have to do this. Its bonus.
+     * @param ray
+     * @return List.
+     */
+    @Override
+    public List<Point3D> findIntersections(Ray ray) {
+        return null;
     }
 }

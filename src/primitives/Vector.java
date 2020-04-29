@@ -67,9 +67,8 @@ public class Vector {
 
 
     /**
-     * Vector getter
-     *
-     * @return
+     * head getter
+     * @return the head
      */
     public Point3D getHead() {
         return head;
