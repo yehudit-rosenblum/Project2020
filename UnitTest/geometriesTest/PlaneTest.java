@@ -9,7 +9,7 @@ import java.util.*;
 
 
 /**
- * Unit test for geometries.Plane class.
+ * Test for geometries.Plane class.
  * @author Yehudit Rosenblum-first
  */
 

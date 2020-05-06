@@ -6,7 +6,7 @@ import static org.junit.Assert.*;
 
 
 /**
- * Unit test for geometries.Polygon class.
+ * Test for geometries.Polygon class.
  * @author Yehudit Rosenblum-first
  */
 

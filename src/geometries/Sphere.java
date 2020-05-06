@@ -59,19 +59,15 @@ Point3D center;
         catch (IllegalArgumentException e) {
             return List.of(ray.getTargetPoint(radius));
         }
-
         /**
         * dot product with vector u(beginning of ray to the center) and v dir of the ray.
         */
         double tm = alignZero(v.dotProduct(u));
         double dSquared = (tm == 0) ? u.lengthSquared() : u.lengthSquared() - tm * tm;
         double thSquared = alignZero(radius * radius - dSquared);
-
         if (thSquared <= 0) return null;
-
         double th = alignZero(Math.sqrt(thSquared));
         if (th == 0) return null;
-
         double t1 = alignZero(tm - th);
         double t2 = alignZero(tm + th);
         if (t1 <= 0 && t2 <= 0) return null;

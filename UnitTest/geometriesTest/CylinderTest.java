@@ -7,7 +7,7 @@ import static org.junit.Assert.*;
 
 
 /**
- * Unit tests for geometries.Cylinder class
+ * Tests for geometries.Cylinder class
  * @author yehudit Rosenblum
  */
 public class CylinderTest {
