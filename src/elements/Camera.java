@@ -19,7 +19,7 @@ public class Camera {
     /**
      * Constructor for creating a camera.
      * It gets a point and a vector to and a vector up.
-     * The vector right will calculate are selfves.
+     * The vector right we wll calculate are selfves.
      * @param spo1
      * @param Vto1
      * @param Vup1

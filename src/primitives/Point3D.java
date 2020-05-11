@@ -1,7 +1,7 @@
 package primitives;
 
 /**
- * A dot class is in the primitive forms.
+ * The Point3d class is in the primitive forms.
  * This is a three-point point that contains 3 coordinates on the graph axis.
  */
 public  class Point3D {

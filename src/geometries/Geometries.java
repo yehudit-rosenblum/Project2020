@@ -15,6 +15,7 @@ public class Geometries implements Intersectable {
      * Default Constructor for creating a empty list of geometries.
      */
     public Geometries(){
+
         geometries=new ArrayList<>();
     }
 
