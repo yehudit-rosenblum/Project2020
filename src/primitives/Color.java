@@ -22,14 +22,11 @@ public class Color {
      */
     private Color() {}
 
-    /**
-     * Constructor to generate a color according to RGB components Each component in
+    /**Constructor to generate a color according to RGB components Each component in
      * range 0..255 (for printed white color) or more [for lights]
-     *
      * @param r1 Red component
      * @param g1 Green component
-     * @param b1 Blue component
-     */
+     * @param b1 Blue component*/
     public Color(double r1, double g1, double b1) {
         if (r1 < 0 || g1 < 0 || b1 < 0)
             throw new IllegalArgumentException("Negative color component is illegal");
@@ -75,12 +72,10 @@ public class Color {
     /**
      * Color setter to generate a color according to RGB components Each component
      * in range 0..255 (for printed white color) or more [for lights]
-     *
      * @param r Red component
      * @param g Green component
      * @param b Blue component
-     * @return the Color object itself for chaining calls
-     */
+     * @return the Color object itself for chaining calls*/
     public Color setColor(double r, double g, double b) {
         if (r < 0 || g < 0 || b < 0)
             throw new IllegalArgumentException("Negative color component is illegal");
@@ -145,10 +140,8 @@ public class Color {
 
     /**
      * Scale the color by a scalar
-     *
      * @param k scale factor
-     * @return new Color object which is the result of the operation
-     */
+     * @return new Color object which is the result of the operation*/
     public Color scale(double k) {
         if (k < 0)
             throw new IllegalArgumentException("Can't scale a color by a negative number");

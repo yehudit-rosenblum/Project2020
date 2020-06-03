@@ -1,21 +1,18 @@
 package primitives;
 import static primitives.Util.*;
 
-/**
- * The Ray class is in the primitive forms.
+/**The Ray class is in the primitive forms.
  * It has a direction vector that contains a 3D point of direction
  * from the beginning of the narrow.
  * Plus the class contains another 3D point that shows the starting point of a vector,
- * that can start from any point.
- */
-
-
+ * that can start from any point.*/
 public class Ray {
     Vector dir;
     Point3D po;
+
     public Ray(Point3D po1, Vector dir1) {
-        dir1.normalized();
         dir=dir1;
+        dir.normalize();
         po=po1;
     }
 
@@ -28,17 +25,18 @@ public class Ray {
         return dir;
     }
 
+
+
+
     public Point3D getPo() {
         return po;
     }
 
 
-    /**
-     * This function makes a new point.
+    /**This function makes a new point.
      * She adds the starting point of the ray with the lenth.
      * @param lenth
-     * @return a new Point which is the starting Point of the ray plus the lenth.
-     */
+     * @return a new Point which is the starting Point of the ray plus the lenth.*/
     public Point3D getTargetPoint(double lenth){
         if (isZero(lenth))
             return po;
