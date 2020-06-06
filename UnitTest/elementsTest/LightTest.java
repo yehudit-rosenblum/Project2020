@@ -173,22 +173,20 @@ public class LightTest {
         scene.setDistance(1000);
         scene.setBackground(Color.BLACK);
         scene.setAmbientLight(new AmbientLight(Color.BLACK, 0));
-
         scene.addGeometries(
                 new Sphere(new Color(java.awt.Color.BLUE), new Material(0.5, 0.5, 100), 50, new Point3D(0, 0, 50)));
 
 
-
-        scene.addLights(new DirectionalLight(new Color(200,300,10), new Vector(1,-1,1)),
-                new PointLight(new Color(200, 200, 0),
-                        new Point3D(500, 100, 100), 1, 0.01, 0.01),
-                new SpotLight(new Color(500, 300, 10), new Point3D(100, 100, 100),
-                        new Vector(1, -1, 2), 1, 0.01, 0.01));
-
+        scene.addLights(new DirectionalLight(new Color(500,300,0),
+                        new Vector(1,-1,1)),
+                new PointLight(new Color(500, 10, 0),
+                        new Point3D(100, -10, 20), 1, 0.000001, 0.00001),
+                new SpotLight(new Color(100, 500, 0),
+                        new Point3D(0, 0, 0),
+                        new Vector(-2, 30, 1), 1, 0.00001, 0.0001));
 
         ImageWriter imageWriter = new ImageWriter("sphereAllLigths", 150, 150, 500, 500);
         Render render = new Render(imageWriter, scene);
-
         render.renderImage();
         render.writeToImage();
     }
