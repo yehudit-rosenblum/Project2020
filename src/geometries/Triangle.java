@@ -1,5 +1,4 @@
 package geometries;
-import elements.*;
 import primitives.*;
 import primitives.Material;
 import java.util.LinkedList;
@@ -49,19 +48,22 @@ public class Triangle extends Polygon {
      * @param ray
      * @return a list which contains or a null or a point if the ray touched the triangle.*/
     @Override
-    public  List<GeoPoint> findIntersections(Ray ray) {
-        List<GeoPoint> intersections = _plane.findIntersections(ray);
+    public  List<GeoPoint> findGeoIntersections(Ray ray) {
+        List<GeoPoint> intersections = _plane.findGeoIntersections(ray);
         if (intersections == null) return null;
         Point3D p0 = ray.getPo();
         Vector v = ray.getDir();
+        /**vector v1=from the first to the starting of the ray of the camera
+         * vector v2=from the second point of the camera to the starting point of the ray from the camera.
+         */
         Vector v1 = _vertices.get(0).subtract(p0);
-        Vector v2 = _vertices.get(1).subtract(p0);
+        Vector v2 = _vertices.get(1).subtract(p0);//second pointminus the starting of the ray of from the camera
         Vector v3 = _vertices.get(2).subtract(p0);
-       /**s1/2/3=dot product with the dir of ray and the normal to the two vectors.*/
-        double s1 = v.dotProduct(v1.crossProduct(v2).normalized());
+       /**first we do crossProduct with the two vectors from point of triangle to ray we get the normal.
+        * then we do dotProduct with the dir of ray and the normal to the two vectors .*/
+        double s1 = v.dotProduct(v1.crossProduct(v2).normalized());//to make sure that every
         if (isZero(s1)) return null;
-        double s2 = v.dotProduct(v2.crossProduct(v3).normalized()
-        );
+        double s2 = v.dotProduct(v2.crossProduct(v3).normalized());
         if (isZero(s2)) return null;
         double s3 = v.dotProduct(v3.crossProduct(v1).normalized());
         if (isZero(s3)) return null;

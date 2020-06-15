@@ -9,25 +9,47 @@ import static primitives.Util.*;
 public class Ray {
     Vector dir;
     Point3D po;
+    private static final double DELTA = 0.1;
 
+
+    /**Constructor that gets a starting point and Vector.
+     * @param po1
+     * @param dir1 Vector*/
     public Ray(Point3D po1, Vector dir1) {
         dir=dir1;
         dir.normalize();
         po=po1;
     }
 
+    /**Constructor that gets a starting point, vector direction and a vector normal to the point.
+     * And then raises the ray a little bit.
+     * @param point1
+     * @param direction1
+     * @param normal*/
+    public Ray(Point3D point1, Vector direction1, Vector normal) {
+        //head+ normal.scale(±DELTA)
+        dir = new Vector(direction1).normalized();
+        double nv = normal.dotProduct(direction1);//calculates the angle between the normal and dir.
+        Vector normalDelta = normal.scale((nv > 0 ? DELTA : -DELTA));
+        po = point1.add(normalDelta);
+    }
+
+    /**copy constructor*/
     public Ray(Ray other) {
         dir=other.dir;
         po=other.po;
     }
 
+    /**getter for Vector direction.
+     * @return dir*/
     public Vector getDir() {
         return dir;
     }
 
 
 
-
+    /**getter for starting point of the ray.
+     * @return point*/
     public Point3D getPo() {
         return po;
     }

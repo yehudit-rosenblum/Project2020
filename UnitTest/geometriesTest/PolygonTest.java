@@ -91,6 +91,6 @@ public class PolygonTest {
         Point3D p4=new Point3D(-1,1,1);
         Polygon p = new Polygon(p1,p2, p3, p4);
         double sqrt3 = Math.sqrt(1d / 3);
-        assertEquals("Bad normal to trinagle", new Vector(1,1,1), p.getNormal(new Point3D(0, 0, 1)));
+        assertEquals("Bad normal to trinagle", new Vector(sqrt3,sqrt3,sqrt3), p.getNormal(new Point3D(0, 0, 1)));
     }
 }

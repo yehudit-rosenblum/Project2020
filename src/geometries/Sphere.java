@@ -59,7 +59,7 @@ Point3D center;
      * @return a list which contains or a null or a point or two points if the ray touched.
      */
     @Override
-    public List<GeoPoint> findIntersections(Ray ray) {
+    public List<GeoPoint> findGeoIntersections(Ray ray) {
         Point3D p0 = ray.getPo();
         Vector v = ray.getDir();
         Vector u;

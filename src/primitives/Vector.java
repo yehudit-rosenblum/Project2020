@@ -82,15 +82,12 @@ public class Vector {
     }
 
 
-    /**Multiplise the head point of the Vector with a number.
+    /**Multiplies the head point of the Vector with a number.
      * @param num double.
      * @return a new vector with a new point head.*/
     public Vector scale(double num) {
-        Coordinate x2=new Coordinate (head.x._coord * num);
-        Coordinate y2=new Coordinate (head.y._coord *num);
-        Coordinate z2= new Coordinate (head.z._coord * num);
-        Vector t=new Vector(x2, y2, z2);
-        return  t;
+        return  new Vector (head.x._coord * num,
+                head.y._coord *num, head.z._coord * num);
     }
 
     /**Multiplices between 2 vectors.

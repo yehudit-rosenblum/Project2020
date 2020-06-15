@@ -1,5 +1,6 @@
 package elements;
 import primitives.*;
+import static primitives.Util.alignZero;
 
 
 /**The pointLight is like a lamp that lights all around him to all direction.
@@ -66,6 +67,11 @@ public class PointLight extends Light implements LightSource {
         return p.subtract(position).normalize();
 
 
+    }
+
+    @Override
+    public double getDistance(Point3D point) {
+        return alignZero(position.distance(point));
     }
 
 }

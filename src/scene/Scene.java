@@ -15,7 +15,7 @@ public class Scene {
     private String name;
     private Color background;
     private AmbientLight ambientLight;
-    private Geometries geometries;
+    public  Geometries geometries;
     private Camera camera;
     private double distance;
     private List<LightSource> lightSources=new LinkedList<LightSource>();

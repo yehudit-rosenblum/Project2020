@@ -1,95 +1,113 @@
 package renderer;
+
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javax.imageio.*;
-import javax.imageio.stream.*;
 
-/**Image writer class combines accumulation of pixel color matrix and
- * finally producing a non-optimized jpeg image from this matrix.
- * The class although is responsible of holding image related parameters
- * of View Plane - pixel matrix size and resolution
- * @author Dan*/
+/**
+ * Image writer class combines accumulation of pixel color matrix and finally
+ * producing a non-optimized jpeg image from this matrix. The class although is
+ * responsible of holding image related parameters of View Plane - pixel matrix
+ * size and resolution
+ *
+ * @author Dan
+ */
 public class ImageWriter {
-    private double imageWidth, imageHeight;//the size of the view plane (godel hahestacloot)
-    private int nX, nY;//the number of squares in the Row and colmn
+    private double _imageWidth, _imageHeight;
+    private int _nX, _nY;
+    private static final String FOLDER_PATH = System.getProperty("user.dir");
 
-    private final String PROJECT_PATH = System.getProperty("user.dir");
+    private BufferedImage _image;
+    private String _imageName;
 
-    private BufferedImage image;
-
-    private String imageName;
+    private Logger _logger = Logger.getLogger("ImageWriter");
 
     // ***************** Constructors ********************** //
     /**
      * Image Writer constructor accepting image name and View Plane parameters,
-     * @param imageName1 the name of jpeg file
-     * @param width1 width of the view plane
-     * @param height1 height of the view plane
-     * @param nX1  number of squares in the Row (shura)
-     * @param nY1  number of squares in the column.(amuda)
+     *
+     * @param imageName the name of jpeg file
+     * @param width     View Plane width in size units
+     * @param height    View Plane height in size units
+     * @param nX        amount of pixels by Width
+     * @param nY        amount of pixels by height
      */
-    public ImageWriter(String imageName1, double width1, double height1, int nX1, int nY1) {
-        imageName = imageName1;
-        imageWidth = width1;
-        imageHeight = height1;
-        nX = nX1;
-        nY = nY1;
+    public ImageWriter(String imageName, double width, double height, int nX, int nY) {
+        _imageName = imageName;
+        _imageWidth = width;
+        _imageHeight = height;
+        _nX = nX;
+        _nY = nY;
 
-        image = new BufferedImage(nX, nY, BufferedImage.TYPE_INT_RGB);
+        _image = new BufferedImage(_nX, _nY, BufferedImage.TYPE_INT_RGB);
     }
 
+
     // ***************** Getters/Setters ********************** //
-    /**View Plane width getter
-     * @return the width*/
-    public double getWidth()  { return imageWidth;  }
+    /**
+     * View Plane width getter
+     *
+     * @return the width
+     */
+    public double getWidth() {
+        return _imageWidth;
+    }
 
+    /**
+     * View Plane height getter
+     *
+     * @return the height
+     */
+    public double getHeight() {
+        return _imageHeight;
+    }
 
-    /** View Plane height getter
-     * @return the height*/
-    public double getHeight() { return imageHeight; }
+    /**
+     * View Plane Y axis resolution
+     *
+     * @return the amount of vertical pixels
+     */
+    public int getNy() {
+        return _nY;
+    }
 
-
-    /** View Plane Y axis resolution
-     * @return the amount of vertical pixels*/
-    public int getNy() { return nY; }
-
-
-    /**View Plane X axis resolution
-     * @return the amount of horizontal pixels*/
-    public int getNx() { return nX; }
+    /**
+     * View Plane X axis resolution
+     *
+     * @return the amount of horizontal pixels
+     */
+    public int getNx() {
+        return _nX;
+    }
 
     // ***************** Operations ******************** //
 
-    /**Function writeToImage produces unoptimized jpeg file of
-     * the image according to pixel color matrix in the directory
-     * of the project*/
-    public void writeToImage(){
-        File ouFile = new File(PROJECT_PATH + "/" + imageName + ".jpg");
+    /**writeToImage produces does the png file and colors of the image according to
+     * to the (hagdara) that is written in the writePixel the function down.*/
+    public void writeToImage() {
         try {
-            javax.imageio.ImageWriter jpgWriter = ImageIO.getImageWritersByFormatName("jpg").next();
-            ImageWriteParam jpgWriteParam = jpgWriter.getDefaultWriteParam();
-            jpgWriteParam.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
-            jpgWriteParam.setCompressionQuality(1f);
-            jpgWriter.setOutput(new FileImageOutputStream(ouFile));
-            jpgWriter.write(null,new IIOImage(image, null, null), jpgWriteParam);
-            //ImageIO.write(_image, "jpg", ouFile);
+            File file = new File(FOLDER_PATH + '/' + _imageName + ".png");
+            ImageIO.write(_image, "png", file);
         } catch (IOException e) {
-            e.printStackTrace();
+            _logger.log(Level.SEVERE, "I/O error", e);
         }
     }
 
     /**
-     * The function writePixel writes a color of a specific pixel
-     * into pixel color matrix
+     * The function writePixel writes a color of a specific pixel into pixel color
+     * matrix. It does the hagdara of each pixcel
+     *
      * @param xIndex X axis index of the pixel
      * @param yIndex Y axis index of the pixel
-     * @param color final color of the pixel
+     * @param color  final color of the pixel
      */
-    public void writePixel(int xIndex, int yIndex, Color color){
-
-        image.setRGB(xIndex, yIndex, color.getRGB());
+    public void writePixel(int xIndex, int yIndex, Color color) {
+        _image.setRGB(xIndex, yIndex, color.getRGB());
     }
 
 }

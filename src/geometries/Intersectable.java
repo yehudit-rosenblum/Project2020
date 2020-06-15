@@ -1,5 +1,7 @@
 package geometries;
 import primitives.*;
+
+import java.util.LinkedList;
 import java.util.List;
 
 
@@ -44,10 +46,15 @@ public interface Intersectable {
 
     }
 
+    List<GeoPoint> findGeoIntersections(Ray ray);
 
-
-
-    List<GeoPoint> findIntersections(Ray ray);
-
+    default List<Point3D> findIntersections(Ray ray) {
+        List<GeoPoint> l1 = findGeoIntersections(ray);
+        if (l1 == null) return null;
+        List<Point3D> l2 = new LinkedList<>();
+        for (GeoPoint gp : l1)
+            l2.add(gp.point);
+        return l2;
+    }
 
 }

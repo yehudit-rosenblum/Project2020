@@ -43,7 +43,7 @@ public class SphereTest {
                 sphere.findIntersections(new Ray(new Point3D(-1, 0, 0), new Vector(1, 1, 0))));
 
         // TC02: Ray starts before and crosses the sphere (2 points)
-        List<Intersectable.GeoPoint> result02 = sphere.findIntersections(new Ray(new Point3D(-1, 0, 0), new Vector(3, 1, 0)));
+        List<Intersectable.GeoPoint> result02 = sphere.findGeoIntersections(new Ray(new Point3D(-1, 0, 0), new Vector(3, 1, 0)));
 
         assertEquals("Wrong number of points", 2, result02.size());
 
@@ -67,7 +67,7 @@ public class SphereTest {
 
         // **** Group: Ray's line goes through the center
         // TC13: Ray starts before the sphere (2 points)
-        List<Intersectable.GeoPoint> result13 = sphere.findIntersections(new Ray(new Point3D(1, -2, 0), new Vector(0, 1, 0)));
+        List<Intersectable.GeoPoint> result13 = sphere.findGeoIntersections(new Ray(new Point3D(1, -2, 0), new Vector(0, 1, 0)));
 
         assertEquals("Wrong number of points", 2, result13.size());
 

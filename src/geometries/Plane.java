@@ -109,17 +109,14 @@ public class Plane extends Geometry {
      * @param ray
      * @return a list which contains or a null or a point if the ray touched the plane.*/
     @Override
-    public List<GeoPoint> findIntersections(Ray ray) {
+    public List<GeoPoint> findGeoIntersections(Ray ray) {
         Vector temp;
         try
         {
-            /**
-             * temp=Vector expresses the dir from the beginning of the ray to the point in the plane.
-             * We do, point in the plane mines point beginning of the ray(po).
+            /**temp=Vector dir from a point on the plane to beginning of the ray.
              * If the ray starts inside the plane then its not considered a intersection point.
              * And The function Subtract will return a new Vector that is Zero.
-             * (because its the same point) And will throw a illegal message
-             */
+             * (because its the same point) And will throw a illegal message*/
             temp = p.subtract(ray.getPo());
         }
         catch (IllegalArgumentException e)
@@ -127,19 +124,14 @@ public class Plane extends Geometry {
             return null;
         }
 
-        /**
-         * d= dotProduct with the normal to the plane and the and of the ray(dir).
-         * if d=0 so its Parallel.
-         * */
+        /**d= dotProduct with the normal to the plane and the and of the ray(dir).
+         * if d=0 so its Parallel.*/
         double d=normal.dotProduct(ray.getDir());
         if (d==0)
             return null;
 
-        /**
-         * t=dotProduct with the normal and the temp,
-         *(Vector that expresses the dir form the beginning of the ray to the point in the plane)
-         * divided with dotProduct with the normal and the and of the ray(dir).
-         */
+        /**dotProduct with the normal to the plane and temp(dir from point on the plane to the beginning of the ray).
+         * d=dotProduct with the normal and the ray(dir).*/
         double t = alignZero(normal.dotProduct(temp) / d);
 
         /**

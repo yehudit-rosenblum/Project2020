@@ -27,7 +27,7 @@ public class CameraIntegrationTest {
         for (int i = 0; i < Nx; ++i) {
             for (int j = 0; j < Ny; ++j) {
                 Ray ray = cam1.constructRayThroughPixel(3, 3, j, i, 1, 3, 3);
-                List<Intersectable.GeoPoint> results = sph.findIntersections(ray);
+                List<Intersectable.GeoPoint> results = sph.findGeoIntersections(ray);
                 if (results != null)
                     count += results.size();
             }
@@ -46,7 +46,7 @@ public class CameraIntegrationTest {
         int Ny = 3;
         for (int i = 0; i < Nx; ++i) {
             for (int j = 0; j < Ny; ++j) {
-                results = sph.findIntersections(cam2.constructRayThroughPixel(Nx, Ny, j, i, 1, 3, 3));
+                results = sph.findGeoIntersections(cam2.constructRayThroughPixel(Nx, Ny, j, i, 1, 3, 3));
                 if (results != null)
                     count += results.size();
             }
@@ -65,7 +65,7 @@ public class CameraIntegrationTest {
         int Ny = 3;
         for (int i = 0; i < Nx; ++i) {
             for (int j = 0; j < Ny; ++j) {
-                results = sph.findIntersections(cam2.constructRayThroughPixel(Nx, Ny, j, i, 1, 3, 3));
+                results = sph.findGeoIntersections(cam2.constructRayThroughPixel(Nx, Ny, j, i, 1, 3, 3));
                 if (results != null)
                     count += results.size();
             }
@@ -84,7 +84,7 @@ public class CameraIntegrationTest {
         int Ny = 3;
         for (int i = 0; i < Nx; ++i) {
             for (int j = 0; j < Ny; ++j) {
-                results = sph.findIntersections(cam2.constructRayThroughPixel(Nx, Ny, j, i, 1, 3, 3));
+                results = sph.findGeoIntersections(cam2.constructRayThroughPixel(Nx, Ny, j, i, 1, 3, 3));
                 if (results != null)
                     count += results.size();
             }
@@ -103,7 +103,7 @@ public class CameraIntegrationTest {
         int Ny = 3;
         for (int i = 0; i < Nx; ++i) {
             for (int j = 0; j < Ny; ++j) {
-                results = sph.findIntersections(cam2.constructRayThroughPixel(Nx, Ny, j, i, 1, 3, 3));
+                results = sph.findGeoIntersections(cam2.constructRayThroughPixel(Nx, Ny, j, i, 1, 3, 3));
                 if (results != null)
                     count += results.size();
             }
@@ -122,7 +122,7 @@ public class CameraIntegrationTest {
         int Ny = 3;
         for (int i = 0; i < Nx; ++i) {
             for (int j = 0; j < Ny; ++j) {
-                results = p.findIntersections(cam1.constructRayThroughPixel(Nx, Ny, j, i, 1, 3, 3));
+                results = p.findGeoIntersections(cam1.constructRayThroughPixel(Nx, Ny, j, i, 1, 3, 3));
                 if (results != null)
                     count += results.size();
             }
@@ -140,7 +140,7 @@ public class CameraIntegrationTest {
         int Ny = 3;
         for (int i = 0; i < Nx; ++i) {
             for (int j = 0; j < Ny; ++j) {
-                results = p.findIntersections(cam1.constructRayThroughPixel(Nx, Ny, j, i, 1, 3, 3));
+                results = p.findGeoIntersections(cam1.constructRayThroughPixel(Nx, Ny, j, i, 1, 3, 3));
                 if (results != null)
                     count += results.size();
             }
@@ -159,7 +159,7 @@ public class CameraIntegrationTest {
         int Ny = 3;
         for (int i = 0; i < Nx; ++i) {
             for (int j = 0; j < Ny; ++j) {
-                results = p.findIntersections(cam1.constructRayThroughPixel(Nx, Ny, j, i, 1, 3, 3));
+                results = p.findGeoIntersections(cam1.constructRayThroughPixel(Nx, Ny, j, i, 1, 3, 3));
                 if (results != null)
                     count += results.size();
             }
@@ -177,7 +177,7 @@ public class CameraIntegrationTest {
         int Ny = 3;
         for (int i = 0; i < Nx; ++i) {
             for (int j = 0; j < Ny; ++j) {
-                results = t1.findIntersections(cam2.constructRayThroughPixel(Nx, Ny, j, i, 1, 3, 3));
+                results = t1.findGeoIntersections(cam2.constructRayThroughPixel(Nx, Ny, j, i, 1, 3, 3));
                 if (results != null)
                     count += results.size();
             }
@@ -195,7 +195,7 @@ public class CameraIntegrationTest {
         int Ny = 3;
         for (int i = 0; i < Nx; ++i) {
             for (int j = 0; j < Ny; ++j) {
-                results = t2.findIntersections(cam1.constructRayThroughPixel(Nx, Ny, j, i, 1, 3, 3));
+                results = t2.findGeoIntersections(cam1.constructRayThroughPixel(Nx, Ny, j, i, 1, 3, 3));
                 if (results != null)
                     count += results.size();
             }
