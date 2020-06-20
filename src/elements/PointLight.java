@@ -5,8 +5,7 @@ import static primitives.Util.alignZero;
 
 /**The pointLight is like a lamp that lights all around him to all direction.
  * There is decay(deicha) with distance.
- * It contains a point position were the lamp is located. and also three mekadmey hanchata.
- * */
+ * It contains a point position were the lamp is located. and also three mekadmey hanchata.*/
 public class PointLight extends Light implements LightSource {
     protected Point3D position;
     protected double kC; // Constant attenuation  (matmeted)
@@ -22,8 +21,8 @@ public class PointLight extends Light implements LightSource {
      * @param kL1 (leniary)
      * @param kQ1 (rebuey)*  */
     public PointLight(Color intensity1, Point3D position1, double kC1, double kL1, double kQ1) {
-        this.intensity = intensity1;
-        this.position = new Point3D(position1);
+        intensity = intensity1;//from his father light
+        position = new Point3D(position1);
         this.kC = kC1;
         this.kL = kL1;
         this.kQ = kQ1;
@@ -40,9 +39,9 @@ public class PointLight extends Light implements LightSource {
 
 
 
-    /**This function returns the _intensity according to a specific point on scene.
+    /**This function returns the intensity according to a specific point on scene.
      * @param p point
-     * @return the _intensity (which is a color based on he distance.*/
+     * @return the intensity (which is a color based on he distance.*/
     @Override
     public Color getIntensity(Point3D p) {
         /**calculates the distance between the location point of the light and the point on the scene.*/

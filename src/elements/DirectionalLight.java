@@ -15,16 +15,16 @@ public class DirectionalLight extends Light implements LightSource{
      * @param colorIntensity
      * @param dir1 vector */
     public DirectionalLight(Color colorIntensity, Vector dir1) {
-        this.intensity=colorIntensity;
+        intensity=colorIntensity;
         dir=dir1.normalized();
     }
 
-    /**This function returns the _intensity which is equal to all points in the scene.
+    /**This function returns the intensity which is equal to all points in the scene.
      * @param p point
-     * @return the Color (_intensity)*/
+     * @return the Color intensity*/
     @Override
     public Color getIntensity(Point3D p) {
-        return super.getIntensity();//he does't have the getter of _intensity just his father light.
+        return super.getIntensity();//he does't have the getter of intensity just his father light.
     }
 
 

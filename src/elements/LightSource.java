@@ -2,7 +2,7 @@ package elements;
 import primitives.*;
 
 
-/** The lightSource is in interface.
+/** The lightSource is in interface. (with out fields, just function)
  * It contains a function that returns the color of the light (that is based on the _intensity=merchak).
  * And also a function that builds the vector direction from the light to the object.*/
 public interface LightSource {

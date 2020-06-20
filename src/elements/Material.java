@@ -3,8 +3,8 @@ package elements;
 
 
 public class Material {
-    private double kd;
-    private double ks;
+    private double kd; //defuse (hetpashtut haor-tlatmeymad)
+    private double ks; //specular (haor shechozer)
     private double nShininess;
 
     /**Construcor that gets
@@ -17,14 +17,21 @@ public class Material {
         nShininess=nShininess1;
     }
 
+    /**A getter for the number of the defuse (hetpashtut haor-tlat meymad)
+     * @return kd double number*/
     public double getKd() {
         return kd;
     }
 
+    /**A getter for the number of the specular
+     * @return ks double number*/
     public double getKs() {
         return ks;
     }
 
+
+    /**A getter for the number int of the Shininess
+     * @return ks int number*/
     public double getnShininess() {
         return nShininess;
     }

@@ -70,8 +70,7 @@ Point3D center;
              * If the ray started in the center of the sphere,
              * the function Subtract will return a new Vector that is Zero,
              * and will throw a illegal message
-             * The intersection Point will be the center plus the length of the radius.
-             */
+             * The intersection Point will be the center plus the length of the radius.*/
             u = center.subtract(p0);   // p0 == _center
         }
         catch (IllegalArgumentException e) {

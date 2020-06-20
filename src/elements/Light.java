@@ -7,8 +7,6 @@ import primitives.*;
    public abstract class Light {
     protected Color intensity;
 
-
-
     /**returns the color of the Light
      * @return _intensity*/
     public Color getIntensity() {

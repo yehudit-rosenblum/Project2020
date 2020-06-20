@@ -95,7 +95,9 @@ public class RenderTest {
                         new Point3D(-100, 0, 100), new Point3D(0, -100, 100), new Point3D(-100, -100, 100))); // upper left
 
         ImageWriter imageWriter = new ImageWriter("color render test", 500, 500, 500, 500);
-        Render render = new Render(imageWriter, scene);
+        Render render = new Render(imageWriter, scene)
+                .setAmountRays(16)
+                .setSuperSamplingRate(0.9);
 
         render.renderImage();
         render.printGrid(50, java.awt.Color.WHITE);

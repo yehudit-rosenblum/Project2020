@@ -1,5 +1,4 @@
 package renderer;
-import geometries.Geometries;
 import primitives.*;
 import primitives.Material;
 import scene.Scene;
@@ -10,7 +9,7 @@ import geometries.Intersectable.GeoPoint;
 import geometries.Intersectable;
 
 
-/** The Render class is in the Renderer.
+/**The Render class is in the Renderer.
  * It is responsible for taking the scene and actually creating the image.
  * It contains a class Scene(name, backround color, ambient light, list of geometries, camera and distance from view plane)
  * And also a class imageWriter*/
@@ -18,26 +17,47 @@ public class Render {
     Scene scene;
     ImageWriter imageWriter;
     private static final double DELTA = 0.1;
-
     private static final int MAX_CALC_COLOR_LEVEL = 10;
     //lower then this number the (shkefut/maraa)has no power on the pixel because its to many objects away or one of the wes atum or not shakuf.
     private static final double MIN_CALC_COLOR_K = 0.001;
+    private double superSamplingRate = 0;//how crouded will I send the rays from  each other.
+    private int amountRays = 1;
 
-    private double superSamplingRate;//how crouded will I send the rays from  each other.
+    public double getSuperSamplingRate() {
+        return superSamplingRate;
+    }
 
+    public Render setSuperSamplingRate(double superSamplingRate) {
+        this.superSamplingRate = superSamplingRate;
+        return this;
+    }
 
+    public int getAmountRays() {
+        return amountRays;
+    }
 
-    /**Constructor for creating the Render
+    public Render setAmountRays(int amountRays) {
+        this.amountRays = amountRays;
+        return this;
+    }
+
+    /**
+     * Constructor for creating the Render
      * gets a scene.
-     * @param scene1*/
+     *
+     * @param scene1
+     */
     public Render(Scene scene1) {
         scene = scene1;
     }
 
 
-    /**Constructor for creating the Render
+    /**
+     * Constructor for creating the Render
      * gets a scene and the imageWriter.
-     * @param scene1*/
+     *
+     * @param scene1
+     */
     public Render(ImageWriter imageWriter1, Scene scene1) {
         imageWriter = imageWriter1;
         scene = scene1;
@@ -45,13 +65,11 @@ public class Render {
 
 
     /**
-     * This function activates the  writeToimage function that produces a png file*/
+     * This function (mafela) the  writeToimage function that produces a png file
+     */
     public void writeToImage() {
         imageWriter.writeToImage();
     }
-
-
-
 
 
     /**This function gets a list of geo points.
@@ -59,11 +77,11 @@ public class Render {
      * @return pt geo point.*/
     private GeoPoint getClosestPoint(List<GeoPoint> intersectionPoints) {
         Point3D p0 = scene.getCamera().getSpo();//the point location of the camera.
-        double minDist = Double.MAX_VALUE;
+        double minDist = Double.MAX_VALUE;//(meatchelim ldistance hamaximily)
         double currentDistance = 0;
         GeoPoint pt = null;
         for (GeoPoint geoPoint : intersectionPoints) {
-            currentDistance = p0.distance(geoPoint.getPoint());
+            currentDistance = p0.distance(geoPoint.getPoint());//checks the distance from camera to point
             if (currentDistance < minDist) {
                 minDist = currentDistance;
                 pt = geoPoint;
@@ -77,10 +95,10 @@ public class Render {
      * color of the point on the shape
      * (specular is the shinnies on the object).
      * @param ks
-     * @param l  the vector from the light to the point on object
+     * @param l          the vector from the light to the point on object
      * @param n
      * @param nl
-     * @param v the vector from camera direction
+     * @param v          the vector from camera direction
      * @param nShininess
      * @param ip
      * @return Color*/
@@ -122,7 +140,6 @@ public class Render {
     }
 
 
-
     /**This function calculates the color that will be colored on the view plane
      * @param
      * @return result*/
@@ -162,7 +179,7 @@ public class Render {
                     double t = transparency(light, l, n, geoPoint);
                     if (t * k > MIN_CALC_COLOR_K) {
                         Color ip = light.getIntensity(pointGeo).scale(t);
-                        result = result.add(calcDiffusive(kd, nl, ip),calcSpecular(ks, l, n, nl, v, nShininess, ip));
+                        result = result.add(calcDiffusive(kd, nl, ip), calcSpecular(ks, l, n, nl, v, nShininess, ip));
                     }
                 }
             }
@@ -193,9 +210,6 @@ public class Render {
     }
 
 
-
-
-
     /**This function tells the function writePixel (in class ImageWrite)
      * how to color each pixel on the view plane. it uses calColor for that. it does the logic of caculating each pixcel*/
     public void renderImage() {
@@ -204,9 +218,9 @@ public class Render {
         java.awt.Color background = scene.getBackground().getColor();
         double distance = scene.getDistance();
 
-        //height and width of the view plane
-        int width = (int) imageWriter.getWidth();
-        int height = (int) imageWriter.getHeight();
+
+        int width = (int) imageWriter.getWidth(); //width of the view plane
+        int height = (int) imageWriter.getHeight();//height of the view plane
         int Nx = imageWriter.getNx(); // number of squares in the Row (shura). we need it for the for
         int Ny = imageWriter.getNy(); //number of squares in the column.(amuda). we need it for the for
 
@@ -214,23 +228,37 @@ public class Render {
          * we will get the Geo points(point 3d, color).
          * if we got nothing so we will color with the back round color
          * if we got the GeoPoints We will send to the function getClosestPoint and color*/
-        if (superSamplingRate==0)//if there is no super sampling will do what we did untile now.
+        Color pixelColor;
         for (int row = 0; row < Ny; ++row) {
             for (int column = 0; column < Nx; ++column) {
-                Ray ray = camera.constructRayThroughPixel(Nx, Ny, column, row, distance, width, height);
-                List<GeoPoint> intersectionPoints = geometries.findGeoIntersections(ray);
-                if (intersectionPoints == null) {
-                    imageWriter.writePixel(column, row, background);
-                } else {
-                    GeoPoint closestPoint = getClosestPoint(intersectionPoints);
-                    java.awt.Color pixelColor = calcColor(closestPoint,ray).getColor();
-                    imageWriter.writePixel(column, row, pixelColor);
+                if (amountRays > 1) { //if there is superSampling
+                    List<Ray> rays = camera.constructNRaysThroughPixel(Nx, Ny, column, row, distance, width, height,superSamplingRate, amountRays);
+                    Color averageColor;
+                    pixelColor = scene.getBackground();
+                    for (Ray ray : rays) {//for each ray from the list give the list of intersection geo-points.
+                        List<GeoPoint> intersectionPoints = geometries.findGeoIntersections(ray);
+                        averageColor = scene.getBackground();
+                        if (intersectionPoints != null) {
+                            GeoPoint closestPoint = getClosestPoint(intersectionPoints);//get the closest point for each ray.
+                            averageColor = calcColor(closestPoint, ray);//calculate the color and put in averageColor
+                        }
+                        pixelColor = pixelColor.add(averageColor);//befor we go to the next ray we add the averageColor to pixelColor.
+                    }
+                    pixelColor = pixelColor.reduce(rays.size());//we are doing the (memuza) and that is the color of that pixel.
                 }
+                else {//if there is no supersampling
+                    Ray ray = camera.constructRayThroughPixel(Nx, Ny, column, row, distance, width, height);
+                    List<GeoPoint> intersectionPoints = geometries.findGeoIntersections(ray);
+                    pixelColor = scene.getBackground();
+                    if (intersectionPoints != null) {
+                        GeoPoint closestPoint = getClosestPoint(intersectionPoints);
+                        pixelColor = calcColor(closestPoint, ray);
+                    }
+                }
+                imageWriter.writePixel(column, row, pixelColor.getColor());
             }
         }
     }
-
-
 
 
     /*** Printing the grid with a fixed interval between lines
@@ -254,7 +282,7 @@ public class Render {
      * the direction of the normal. And returns the knew ray.
      * @param point
      * @param inRay ray r.
-     * @param n normal
+     * @param n     normal
      * @return a knew ray*/
     private Ray constructRefractedRay(Point3D point, Ray inRay, Vector n) {
         return new Ray(point, inRay.getDir(), n);
@@ -262,12 +290,12 @@ public class Render {
 
 
     /**This function gets the reflection(maraa) ray that checks which other objects impacts here color
-     *  because she is a mirror
+     * because she is a mirror
      * Then she creates a knew ray that's a little bit upper from the point to
      * the direction of the normal. And returns the knew ray.
      * @param point
      * @param inRay ray r.
-     * @param n normal
+     * @param n     normal
      * @return a knew ray*/
     private Ray constructReflectedRay(Point3D point, Ray inRay, Vector n) {
         Vector v = inRay.getDir();
@@ -284,8 +312,9 @@ public class Render {
 
 
     /**
-     *  This function bring a double number of how much the objects between the point in light
-     *  are transparency (atum or shakoof). To knew how much impact the light has on the point.
+     * This function bring a double number of how much the objects between the point in light
+     * are transparency (atum or shakoof). To knew how much impact the light has on the point.
+     *
      * @param light
      * @param l
      * @param n
@@ -298,8 +327,8 @@ public class Render {
         Point3D pointGeo = geopoint.getPoint();//the point.
 
         /**if the ray from point did not find eny objects so it will bring back 1=no change. do not reduse the impact of the light*/
-        List<GeoPoint> intersections=null;
-        intersections=scene.getGeometries().findGeoIntersections(lightRay);
+        List<GeoPoint> intersections = null;
+        intersections = scene.getGeometries().findGeoIntersections(lightRay);
         if (intersections == null) {
             return 1d;//all lights impact and go throw. there is no change.
         }
@@ -317,12 +346,14 @@ public class Render {
     }
 
 
-
-    /**Find intersections of a ray with the scene geometries and get the
+    /**
+     * Find intersections of a ray with the scene geometries and get the
      * intersection point that is closest to the ray head. If there are no
      * intersections, null will be returned.
+     *
      * @param ray intersecting the scene
-     * @return the closest point*/
+     * @return the closest point
+     */
     private GeoPoint findClosestIntersection(Ray ray) {
         if (ray == null) {
             return null;
@@ -344,6 +375,7 @@ public class Render {
         }
         return closestPoint;
     }
+
 
 }
 
